@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eaton ABM One-Sheet | Glean</title>
+  <meta name="description" content="External ABM one-sheet outlining enterprise AI use cases for Eaton across engineering, operations, service, sales, and corporate functions." />
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --panel: #ffffff;
+      --text: #111827;
+      --muted: #5b6475;
+      --line: #dde3ee;
+      --brand: #343ced;
+      --brand-2: #7c3aed;
+      --accent: #06b6d4;
+      --green: #16a34a;
+      --amber: #d97706;
+      --shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(52,60,237,.14), transparent 32%),
+        radial-gradient(circle at top right, rgba(124,58,237,.12), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 32px 20px 56px; }
+    .hero {
+      background: linear-gradient(135deg, rgba(52,60,237,.98), rgba(124,58,237,.96));
+      color: white;
+      border-radius: 28px;
+      padding: 34px 34px 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -50px auto;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(255,255,255,.22), rgba(255,255,255,0));
+      border-radius: 999px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .9;
+      margin-bottom: 14px;
+    }
+    .badge-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #7ef9ff;
+      box-shadow: 0 0 0 6px rgba(255,255,255,.12);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      max-width: 860px;
+    }
+    .subhead {
+      max-width: 780px;
+      margin: 16px 0 0;
+      font-size: 18px;
+      color: rgba(255,255,255,.92);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.45fr .95fr;
+      gap: 22px;
+      margin-top: 26px;
+      align-items: end;
+    }
+    .signal-card {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 22px;
+      padding: 22px;
+      backdrop-filter: blur(8px);
+    }
+    .signal-card h2, .signal-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+    .signal-card p {
+      margin: 0;
+      font-size: 14px;
+      color: rgba(255,255,255,.86);
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .metric {
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .metric strong {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -0.04em;
+    }
+    .metric span {
+      font-size: 13px;
+      color: rgba(255,255,255,.84);
+    }
+
+    .section {
+      margin-top: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .section h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+    .section .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      max-width: 820px;
+      font-size: 15px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+      background: linear-gradient(180deg, #fff, #fbfcff);
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      background: rgba(52,60,237,.08);
+    }
+    .pill {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(52,60,237,.08);
+      color: var(--brand);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      letter-spacing: -0.02em;
+    }
+    .card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+    }
+    .bullet-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: #1f2937;
+      font-size: 14px;
+    }
+    .bullet-list li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      flex: 0 0 8px;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+      background: linear-gradient(180deg, #fff, #fbfcff);
+    }
+    .panel h3 {
+      margin: 0 0 16px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+    .bar-group { display: grid; gap: 14px; }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 158px 1fr 48px;
+      gap: 12px;
+      align-items: center;
+    }
+    .bar-label {
+      font-size: 13px;
+      color: #243041;
+      font-weight: 600;
+    }
+    .bar-track {
+      height: 12px;
+      border-radius: 999px;
+      background: #edf2fb;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--brand), var(--accent));
+    }
+    .bar-fill.medium {
+      background: linear-gradient(90deg, var(--brand-2), #9f67ff);
+    }
+    .bar-fill.low {
+      background: linear-gradient(90deg, #94a3b8, #cbd5e1);
+    }
+    .bar-score {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .tiers {
+      display: grid;
+      gap: 12px;
+    }
+    .tier {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: #fff;
+    }
+    .tier strong {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+    }
+    .tier p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .tier-1 strong { color: var(--green); }
+    .tier-2 strong { color: var(--amber); }
+    .tier-3 strong { color: var(--brand); }
+
+    .footer-note {
+      margin-top: 26px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(52,60,237,.08), rgba(6,182,212,.08));
+      border: 1px solid rgba(52,60,237,.12);
+      color: #243041;
+      font-size: 14px;
+    }
+
+    .brand-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .glean-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .glean-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      display: inline-block;
+      position: relative;
+      box-shadow: 0 8px 18px rgba(52,60,237,.24);
+    }
+    .glean-logo::after {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border-radius: 7px;
+      background: rgba(255,255,255,.22);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .chart-grid,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding: 18px 14px 40px; }
+      .hero, .section { padding: 22px; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .bar-row { grid-template-columns: 1fr; gap: 6px; }
+      .bar-score { text-align: left; }
+      .brand-footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow"><span class="badge-dot"></span> External ABM one-sheet</div>
+      <h1>Glean for Eaton</h1>
+      <p class="subhead">Enterprise AI use cases across engineering, operations, service, sales, and corporate functions — designed to help Eaton teams find trusted answers faster, reduce manual work, and scale AI securely across the business.</p>
+
+      <div class="hero-grid">
+        <div class="signal-card">
+          <h2>Why this matters for Eaton</h2>
+          <p>The clearest opportunity is not a single workflow. It is a broader enterprise pattern: important knowledge is spread across systems, work is slowed by manual coordination, and AI value depends on trusted access to the right information at the right time.</p>
+        </div>
+        <div class="metrics">
+          <div class="metric"><strong>8</strong><span>Core enterprise use-case areas</span></div>
+          <div class="metric"><strong>4</strong><span>High-priority starting motions</span></div>
+          <div class="metric"><strong>1</strong><span>Governed knowledge layer across systems</span></div>
+          <div class="metric"><strong>0</strong><span>Need to rip and replace existing tools</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Enterprise opportunity map</h2>
+      <p class="intro">Illustrative examples of where Glean can help Eaton improve productivity, decision-making, and knowledge access across the business.</p>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top"><div class="icon">⚙️</div><div class="pill">Engineering</div></div>
+          <h3>Engineering knowledge reuse</h3>
+          <p>Help teams quickly find prior designs, test results, drawings, specifications, and project decisions across fragmented systems.</p>
+          <ul class="bullet-list">
+            <li>Reduce duplicate work</li>
+            <li>Shorten design and NPI cycles</li>
+            <li>Preserve institutional knowledge</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><div class="icon">📄</div><div class="pill">Sales + Operations</div></div>
+          <h3>Quote and proposal acceleration</h3>
+          <p>Bring together RFQs, specs, approvals, drawings, and supply inputs to streamline complex quote package creation.</p>
+          <ul class="bullet-list">
+            <li>Improve quote speed</li>
+            <li>Increase quote accuracy</li>
+            <li>Reduce coordination drag</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><div class="icon">🏭</div><div class="pill">Manufacturing</div></div>
+          <h3>Plant troubleshooting and SOP access</h3>
+          <p>Give plant teams faster access to SOPs, issue history, troubleshooting guides, and expert know-how.</p>
+          <ul class="bullet-list">
+            <li>Reduce downtime</li>
+            <li>Improve consistency across shifts</li>
+            <li>Ramp new employees faster</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><div class="icon">🔧</div><div class="pill">Service</div></div>
+          <h3>Field service and support efficiency</h3>
+          <p>Unify service documentation, case history, manuals, and prior resolutions to improve response quality and speed.</p>
+          <ul class="bullet-list">
+            <li>Improve first-response quality</li>
+            <li>Reduce escalations</li>
+            <li>Cut search time for documentation</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><div class="icon">🚚</div><div class="pill">Supply Chain</div></div>
+          <h3>Supply chain and procurement visibility</h3>
+          <p>Surface supplier context, sourcing policies, logistics updates, and inventory-related guidance in one place.</p>
+          <ul class="bullet-list">
+            <li>React faster to exceptions</li>
+            <li>Improve supplier coordination</li>
+            <li>Support resilience planning</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><div class="icon">📈</div><div class="pill">Revenue Teams</div></div>
+          <h3>Sales and marketing enablement</h3>
+          <p>Help teams find customer stories, account context, approved content, and competitive insight faster.</p>
+          <ul class="bullet-list">
+            <li>Increase prep speed</li>
+            <li>Support better personalization</li>
+            <li>Reduce non-selling admin work</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><div class="icon">👥</div><div class="pill">Corporate Functions</div></div>
+          <h3>HR and employee self-service</h3>
+          <p>Let employees self-serve answers on policies, onboarding, and internal processes while reducing repetitive requests.</p>
+          <ul class="bullet-list">
+            <li>Improve employee experience</li>
+            <li>Reduce repetitive questions</li>
+            <li>Free up shared services teams</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><div class="icon">🛡️</div><div class="pill">Governance</div></div>
+          <h3>IT, finance, legal, and security</h3>
+          <p>Provide governed, permission-aware access to policies, controls, prior decisions, and operational context.</p>
+          <ul class="bullet-list">
+            <li>Move faster with trusted information</li>
+            <li>Support compliance and governance</li>
+            <li>Scale AI responsibly</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Priority view</h2>
+      <p class="intro">Recommended sequencing based on Eaton fit and likely near-term value.</p>
+      <div class="chart-grid">
+        <div class="panel">
+          <h3>Use-case priority</h3>
+          <div class="bar-group">
+            <div class="bar-row"><div class="bar-label">Engineering reuse</div><div class="bar-track"><div class="bar-fill" style="width: 96%"></div></div><div class="bar-score">High</div></div>
+            <div class="bar-row"><div class="bar-label">Quote acceleration</div><div class="bar-track"><div class="bar-fill" style="width: 94%"></div></div><div class="bar-score">High</div></div>
+            <div class="bar-row"><div class="bar-label">Field support</div><div class="bar-track"><div class="bar-fill" style="width: 91%"></div></div><div class="bar-score">High</div></div>
+            <div class="bar-row"><div class="bar-label">Plant troubleshooting</div><div class="bar-track"><div class="bar-fill" style="width: 88%"></div></div><div class="bar-score">High</div></div>
+            <div class="bar-row"><div class="bar-label">Supply chain</div><div class="bar-track"><div class="bar-fill medium" style="width: 70%"></div></div><div class="bar-score">Med</div></div>
+            <div class="bar-row"><div class="bar-label">HR self-service</div><div class="bar-track"><div class="bar-fill medium" style="width: 62%"></div></div><div class="bar-score">Med</div></div>
+            <div class="bar-row"><div class="bar-label">IT / legal / finance</div><div class="bar-track"><div class="bar-fill low" style="width: 54%"></div></div><div class="bar-score">Scale</div></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Recommended rollout path</h3>
+          <div class="tiers">
+            <div class="tier tier-1">
+              <strong>Tier 1 · Immediate fit</strong>
+              <p>Engineering knowledge reuse, quote and proposal acceleration, field service and support, and plant troubleshooting / SOP access.</p>
+            </div>
+            <div class="tier tier-2">
+              <strong>Tier 2 · Expansion motions</strong>
+              <p>Supply chain and procurement, sales and marketing enablement, and HR employee self-service.</p>
+            </div>
+            <div class="tier tier-3">
+              <strong>Tier 3 · Enterprise scale</strong>
+              <p>IT help desk, finance decision support, legal and compliance workflows, and broader security / governance use cases.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        Eaton’s strongest starting point is likely a practical, governed enterprise knowledge layer that connects teams to trusted answers across the systems they already use — creating immediate value in engineering, quoting, service, and operations while establishing a scalable foundation for broader enterprise AI adoption.
+      </div>
+
+      <div class="brand-footer">
+        <div class="glean-mark"><span class="glean-logo"></span> Glean</div>
+        <div>One platform to connect Eaton teams with trusted enterprise knowledge and AI.</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
