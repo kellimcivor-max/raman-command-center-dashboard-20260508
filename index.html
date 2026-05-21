@@ -1,104 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Good Morning, Raman — Command Center</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glean for Eaton | Enterprise AI Use Cases</title>
+  <meta name="description" content="Enterprise AI use cases for Eaton across engineering, operations, service, sales, HR, IT, finance, legal, and security." />
   <style>
-    *{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f5f7;color:#1d1d1f}
-    .shell{max-width:1180px;margin:0 auto;padding:32px 24px 64px}
-    .greeting{padding:24px 0 28px}.hello{font-size:38px;font-weight:700;letter-spacing:-.03em}.date{font-size:15px;color:#6e6e73;margin-top:4px}
-    .badge{display:inline-flex;align-items:center;gap:8px;background:#111;color:#fff;border-radius:999px;padding:6px 12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:14px}
-    .dot{width:7px;height:7px;border-radius:50%;background:#34c759}
-    .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:0 0 28px}
-    .card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.06),0 18px 36px rgba(0,0,0,.04)}
-    .kpi .lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6e6e73;font-weight:700}.kpi .val{font-size:28px;font-weight:700;margin-top:4px}.kpi .sub{font-size:12px;margin-top:4px;color:#34c759}
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.section{margin-top:30px}.section h2{font-size:20px;letter-spacing:-.02em;margin:0 0 14px}
-    h3{margin:0 0 12px;font-size:16px}
-    .row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #f0f0f2}.row:last-child{border-bottom:none}
-    .label{font-size:14px;font-weight:600}.meta{font-size:12px;color:#6e6e73;text-align:right}.green{color:#34c759}.amber{color:#ff9f0a}.blue{color:#0071e3}
-    .agenda{display:grid;gap:12px}.agenda-item{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f2}.agenda-item:last-child{border-bottom:none}.time{color:#0071e3;font-size:13px;font-weight:700}.title{font-size:14px;font-weight:600}.sub{font-size:12px;color:#6e6e73}
-    .bars{display:grid;gap:12px}.bar-label{display:flex;justify-content:space-between;font-size:12px;color:#6e6e73;margin-bottom:5px}.bar{height:8px;border-radius:999px;background:#ececef;overflow:hidden}.fill{height:100%;border-radius:999px}
-    .insight{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f2}.insight:last-child{border-bottom:none}.ico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#f0f4ff}
-    table{width:100%;border-collapse:collapse} th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #f0f0f2;font-size:13px} th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#6e6e73}
-    .footer{margin-top:36px;padding-top:18px;border-top:1px solid #e8e8ed;font-size:11px;color:#6e6e73;text-align:center}
-    @media (max-width:960px){.kpis,.grid-2{grid-template-columns:1fr 1fr}} @media (max-width:720px){.kpis,.grid-2{grid-template-columns:1fr}.hello{font-size:30px}}
+    :root {
+      --bg: #f6f9fc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: #dbe5ef;
+      --brand: #5b5df0;
+      --brand-2: #7c3aed;
+      --green: #0f9f6e;
+      --blue: #0ea5e9;
+      --amber: #f59e0b;
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(91,93,240,.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(14,165,233,.10), transparent 24%),
+        var(--bg);
+      line-height: 1.45;
+    }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 40px 24px 56px; }
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 48%, #2b2f77 100%);
+      color: #fff;
+      border-radius: 28px;
+      padding: 36px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,.22), transparent 65%);
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.14);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.05;
+      max-width: 760px;
+    }
+    .sub {
+      max-width: 760px;
+      color: rgba(255,255,255,.84);
+      font-size: 18px;
+      margin-bottom: 24px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .hero-stat {
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding: 18px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-stat strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+    .hero-stat span {
+      color: rgba(255,255,255,.8);
+      font-size: 14px;
+    }
+    .section { margin-top: 28px; }
+    .section-title {
+      font-size: 26px;
+      margin: 0 0 14px;
+    }
+    .lead {
+      color: var(--muted);
+      max-width: 900px;
+      margin: 0 0 18px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .signal-list, .benefit-list { margin: 0; padding-left: 18px; color: var(--muted); }
+    .signal-list li, .benefit-list li { margin: 10px 0; }
+    .bar-block { margin: 18px 0; }
+    .bar-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .bar-track {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: #e8eef5;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--brand), var(--blue));
+    }
+    .use-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .use-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      min-height: 220px;
+    }
+    .pill {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--brand);
+      background: rgba(91,93,240,.08);
+      border: 1px solid rgba(91,93,240,.12);
+      border-radius: 999px;
+      padding: 6px 10px;
+      margin-bottom: 12px;
+    }
+    h3 { margin: 0 0 8px; font-size: 20px; }
+    .use-card p { margin: 0 0 12px; color: var(--muted); }
+    .mini-list { margin: 0; padding-left: 18px; color: var(--muted); }
+    .mini-list li { margin: 7px 0; }
+    .priority {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .tier {
+      border-radius: 22px;
+      padding: 22px;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+    .tier h4 { margin: 0 0 8px; font-size: 20px; }
+    .tier p { margin: 0 0 12px; color: rgba(255,255,255,.88); }
+    .tier ul { margin: 0; padding-left: 18px; }
+    .tier li { margin: 8px 0; }
+    .tier-1 { background: linear-gradient(135deg, #5b5df0, #0ea5e9); }
+    .tier-2 { background: linear-gradient(135deg, #0f9f6e, #10b981); }
+    .tier-3 { background: linear-gradient(135deg, #f59e0b, #fb7185); }
+    .footer {
+      margin-top: 28px;
+      padding: 22px 26px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+    .brand-note { font-weight: 700; color: var(--text); }
+    .tiny { font-size: 13px; }
+    @media (max-width: 980px) {
+      .hero-grid, .grid-2, .use-grid, .priority { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding: 20px 16px 40px; }
+      .hero { padding: 24px; border-radius: 22px; }
+      .card, .use-card, .tier { padding: 18px; }
+    }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <div class="greeting">
-      <div class="hello">Good morning, Raman.</div>
-      <div class="date">Friday, May 8 2026 · CIO command center view for Goodyear · Illustrative external share</div>
-      <div class="badge"><span class="dot"></span> Powered by Glean Work AI</div>
-    </div>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Glean for Eaton</div>
+      <h1>Enterprise AI use cases across Eaton</h1>
+      <div class="sub">A practical path to help Eaton teams find trusted answers faster, reduce manual work, and scale AI securely across engineering, operations, service, sales, and corporate functions.</div>
+      <div class="hero-grid">
+        <div class="hero-stat"><strong>8</strong><span>core enterprise use-case areas</span></div>
+        <div class="hero-stat"><strong>4</strong><span>high-priority starting motions</span></div>
+        <div class="hero-stat"><strong>1</strong><span>governed knowledge layer across systems</span></div>
+        <div class="hero-stat"><strong>0</strong><span>need to rip and replace existing tools</span></div>
+      </div>
+    </section>
 
-    <div class="kpis">
-      <div class="card kpi"><div class="lbl">Connected Systems</div><div class="val">42</div><div class="sub">↑ 6 new connectors live</div></div>
-      <div class="card kpi"><div class="lbl">Weekly Active Users</div><div class="val">18.4K</div><div class="sub">↑ 9% self-service usage</div></div>
-      <div class="card kpi"><div class="lbl">Trusted Answer Rate</div><div class="val">93.8%</div><div class="sub">↑ 2.1 pts source-backed</div></div>
-      <div class="card kpi"><div class="lbl">Permission Exceptions</div><div class="val">4</div><div class="sub">↓ unresolved drifts</div></div>
-      <div class="card kpi"><div class="lbl">AI Programs in Flight</div><div class="val">11</div><div class="sub">↑ 2 new evaluations</div></div>
-    </div>
-
-    <div class="grid-2">
+    <section class="section grid-2">
       <div class="card">
-        <h3>Enterprise Platform Health</h3>
-        <div class="row"><div class="label">Identity & SSO layer</div><div class="meta green">Healthy · 99.98% sign-in success</div></div>
-        <div class="row"><div class="label">Microsoft 365 / Teams / Outlook</div><div class="meta green">Healthy · high query coverage</div></div>
-        <div class="row"><div class="label">SAP / ERP knowledge access</div><div class="meta green">Healthy · grounded answers live</div></div>
-        <div class="row"><div class="label">ServiceNow workflows</div><div class="meta green">Healthy · incident context connected</div></div>
-        <div class="row"><div class="label">SharePoint / policy repositories</div><div class="meta amber">Metadata cleanup in progress</div></div>
-        <div class="row"><div class="label">Engineering PLM / technical docs</div><div class="meta green">Healthy · permissions honored</div></div>
+        <h2 class="section-title">Why this matters for Eaton</h2>
+        <p class="lead">The clearest Eaton opportunity is not a single workflow. It is a broader enterprise pattern: important knowledge is spread across systems, work is slowed by manual coordination, and AI value depends on trusted access to the right information at the right time.</p>
+        <ul class="signal-list">
+          <li>Accelerate quote package and proposal assembly across sales, engineering, and operations</li>
+          <li>Improve engineering productivity by reusing prior designs, specs, drawings, and project context</li>
+          <li>Help service and support teams resolve issues faster with better documentation access</li>
+          <li>Reduce dependency on tribal knowledge across frontline and corporate functions</li>
+          <li>Support enterprise AI adoption with secure, permission-aware access to company knowledge</li>
+        </ul>
       </div>
       <div class="card">
-        <h3>Your Day</h3>
-        <div class="agenda">
-          <div class="agenda-item"><div class="time">8:00a</div><div><div class="title">CIO Staff Priorities Sync</div><div class="sub">Platform readiness and adoption review</div></div></div>
-          <div class="agenda-item"><div class="time">9:00a</div><div><div class="title">Identity & Access Governance Check-in</div><div class="sub">Permission drift and exception review</div></div></div>
-          <div class="agenda-item"><div class="time">10:30a</div><div><div class="title">Enterprise Search Adoption Review</div><div class="sub">Usage trends by function</div></div></div>
-          <div class="agenda-item"><div class="time">1:00p</div><div><div class="title">AI Platform Evaluation Session</div><div class="sub">Secure enterprise AI roadmap</div></div></div>
-          <div class="agenda-item"><div class="time">4:00p</div><div><div class="title">Weekly Executive Update Prep</div><div class="sub">Transformation and productivity narrative</div></div></div>
+        <h2 class="section-title">Priority view</h2>
+        <p class="lead">Recommended sequencing based on Eaton fit and likely near-term value.</p>
+        <div class="bar-block">
+          <div class="bar-top"><span>Engineering knowledge reuse</span><strong>High</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width: 96%"></div></div>
+        </div>
+        <div class="bar-block">
+          <div class="bar-top"><span>Quote and proposal acceleration</span><strong>High</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width: 93%"></div></div>
+        </div>
+        <div class="bar-block">
+          <div class="bar-top"><span>Field service and support</span><strong>High</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width: 88%"></div></div>
+        </div>
+        <div class="bar-block">
+          <div class="bar-top"><span>Plant troubleshooting and SOP access</span><strong>High</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width: 86%"></div></div>
+        </div>
+        <div class="bar-block">
+          <div class="bar-top"><span>Supply chain and procurement</span><strong>Medium</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width: 72%"></div></div>
+        </div>
+        <div class="bar-block">
+          <div class="bar-top"><span>HR, IT, finance, legal, and security</span><strong>Expansion</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width: 66%"></div></div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="section grid-2">
-      <div class="card">
-        <h3>Enterprise Rollout Tracker</h3>
-        <div class="bars">
-          <div><div class="bar-label"><span>Connector Coverage</span><span>62%</span></div><div class="bar"><div class="fill" style="width:62%;background:#0071e3"></div></div></div>
-          <div><div class="bar-label"><span>Permission Mapping</span><span>78%</span></div><div class="bar"><div class="fill" style="width:78%;background:#34c759"></div></div></div>
-          <div><div class="bar-label"><span>Answer Quality Tuning</span><span>54%</span></div><div class="bar"><div class="fill" style="width:54%;background:#ff9f0a"></div></div></div>
-          <div><div class="bar-label"><span>Workflow Embed Rollout</span><span>31%</span></div><div class="bar"><div class="fill" style="width:31%;background:#bfc2c7"></div></div></div>
+    <section class="section">
+      <h2 class="section-title">Enterprise opportunity map</h2>
+      <p class="lead">Illustrative examples of where Glean can help Eaton improve productivity, decision-making, and knowledge access across the business.</p>
+      <div class="use-grid">
+        <div class="use-card">
+          <div class="pill">Engineering</div>
+          <h3>Engineering knowledge reuse</h3>
+          <p>Help teams quickly find prior designs, test results, drawings, specifications, and project decisions across fragmented systems.</p>
+          <ul class="mini-list">
+            <li>Reduce duplicate work</li>
+            <li>Shorten design and NPI cycles</li>
+            <li>Preserve institutional knowledge</li>
+          </ul>
+        </div>
+        <div class="use-card">
+          <div class="pill">Sales + Operations</div>
+          <h3>Quote and proposal acceleration</h3>
+          <p>Bring together RFQs, specs, approvals, drawings, and supply inputs to streamline complex quote package creation.</p>
+          <ul class="mini-list">
+            <li>Improve quote speed</li>
+            <li>Increase quote accuracy</li>
+            <li>Reduce coordination drag</li>
+          </ul>
+        </div>
+        <div class="use-card">
+          <div class="pill">Manufacturing</div>
+          <h3>Plant troubleshooting and SOP access</h3>
+          <p>Give plant teams faster access to SOPs, issue history, troubleshooting guides, and expert know-how.</p>
+          <ul class="mini-list">
+            <li>Reduce downtime</li>
+            <li>Improve consistency across shifts</li>
+            <li>Ramp new employees faster</li>
+          </ul>
+        </div>
+        <div class="use-card">
+          <div class="pill">Service</div>
+          <h3>Field service and support efficiency</h3>
+          <p>Unify service documentation, case history, manuals, and prior resolutions to improve response quality and speed.</p>
+          <ul class="mini-list">
+            <li>Improve first-response quality</li>
+            <li>Reduce escalations</li>
+            <li>Cut search time for documentation</li>
+          </ul>
+        </div>
+        <div class="use-card">
+          <div class="pill">Supply Chain</div>
+          <h3>Supply chain and procurement visibility</h3>
+          <p>Surface supplier context, sourcing policies, logistics updates, and inventory-related guidance in one place.</p>
+          <ul class="mini-list">
+            <li>React faster to exceptions</li>
+            <li>Improve supplier coordination</li>
+            <li>Support resilience planning</li>
+          </ul>
+        </div>
+        <div class="use-card">
+          <div class="pill">Revenue Teams</div>
+          <h3>Sales and marketing enablement</h3>
+          <p>Help teams find customer stories, account context, approved content, and competitive insight faster.</p>
+          <ul class="mini-list">
+            <li>Increase prep speed</li>
+            <li>Support better personalization</li>
+            <li>Reduce non-selling admin work</li>
+          </ul>
+        </div>
+        <div class="use-card">
+          <div class="pill">Corporate Functions</div>
+          <h3>HR and employee self-service</h3>
+          <p>Let employees self-serve answers on policies, onboarding, and internal processes while reducing repetitive requests.</p>
+          <ul class="mini-list">
+            <li>Improve employee experience</li>
+            <li>Reduce repetitive questions</li>
+            <li>Free up shared services teams</li>
+          </ul>
+        </div>
+        <div class="use-card">
+          <div class="pill">Governance</div>
+          <h3>IT, finance, legal, and security</h3>
+          <p>Provide governed, permission-aware access to policies, controls, prior decisions, and operational context.</p>
+          <ul class="mini-list">
+            <li>Move faster with trusted information</li>
+            <li>Support compliance and governance</li>
+            <li>Scale AI responsibly</li>
+          </ul>
         </div>
       </div>
-      <div class="card">
-        <h3>AI-Surfaced Insights</h3>
-        <div class="insight"><div class="ico">💡</div><div><strong>Search demand is clustering in SAP, ServiceNow, and policy content</strong><div class="sub">The quickest proof point is fewer handoffs across core systems, not another standalone destination.</div></div></div>
-        <div class="insight"><div class="ico">🔒</div><div><strong>Permission exceptions are down but not eliminated</strong><div class="sub">The remaining drifts are concentrated in legacy shared-drive content and should be closed before broader rollout.</div></div></div>
-        <div class="insight"><div class="ico">📈</div><div><strong>Employee self-service is expanding beyond IT</strong><div class="sub">The enterprise case is now cross-functional across finance, HR, and operations.</div></div></div>
-        <div class="insight"><div class="ico">🧭</div><div><strong>The cleanest CIO narrative is secure cross-system answer retrieval</strong><div class="sub">Lead with trust, permissions, and adoption readiness, then layer in workflow acceleration.</div></div></div>
-      </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h2>Peer Signals</h2>
-      <div class="card">
-        <table>
-          <thead><tr><th>Person</th><th>Role</th><th>Top Item Today</th><th>Needs You</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Christina Zamarro</strong></td><td>CFO</td><td>Wants clearer finance ROI story</td><td class="blue">Align</td></tr>
-            <tr><td><strong>Chris Helsel</strong></td><td>CTO</td><td>Interested in engineering knowledge reuse</td><td class="blue">Collaborate</td></tr>
-            <tr><td><strong>Don Metzelaar</strong></td><td>Manufacturing & Supply Chain</td><td>Strong ops use-case leverage</td><td class="blue">Prioritize</td></tr>
-            <tr><td><strong>Nicole Gray</strong></td><td>CHRO</td><td>Employee self-service motion gaining relevance</td><td>Monitor</td></tr>
-            <tr><td><strong>David Phillips</strong></td><td>Chief Legal Officer</td><td>Focused on permission-safe retrieval</td><td>Review</td></tr>
-          </tbody>
-        </table>
+    <section class="section">
+      <h2 class="section-title">Recommended rollout path</h2>
+      <div class="priority">
+        <div class="tier tier-1">
+          <h4>Tier 1</h4>
+          <p>Immediate fit</p>
+          <ul>
+            <li>Engineering knowledge reuse</li>
+            <li>Quote and proposal acceleration</li>
+            <li>Field service and support</li>
+            <li>Plant troubleshooting and SOP access</li>
+          </ul>
+        </div>
+        <div class="tier tier-2">
+          <h4>Tier 2</h4>
+          <p>Expansion motions</p>
+          <ul>
+            <li>Supply chain and procurement</li>
+            <li>Sales and marketing enablement</li>
+            <li>HR and employee self-service</li>
+          </ul>
+        </div>
+        <div class="tier tier-3">
+          <h4>Tier 3</h4>
+          <p>Enterprise scale</p>
+          <ul>
+            <li>IT help desk and internal support</li>
+            <li>Finance decision support</li>
+            <li>Legal and compliance workflows</li>
+            <li>Security and governance use cases</li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="footer">Illustrative external share version of Raman's command center. Built for CIO-oriented storytelling around secure, permission-aware enterprise AI.</div>
+    <div class="footer">
+      <div>
+        <div class="brand-note">Powered by Glean</div>
+        <div class="tiny">One platform to connect Eaton teams with trusted enterprise knowledge and AI.</div>
+      </div>
+      <div class="tiny">Designed as an external shareable HTML page</div>
+    </div>
   </div>
 </body>
 </html>
